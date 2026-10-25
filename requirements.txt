@@ -1,0 +1,8 @@
+
+streamlit
+groq
+python-dotenv
+ddgs
+pandas
+plotly
+geopy
