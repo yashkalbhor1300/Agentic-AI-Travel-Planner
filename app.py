@@ -266,7 +266,7 @@ with st.sidebar:
         bus_type = st.selectbox("Bus type", ["Any bus", "AC Seater", "Non-AC Seater", "AC Sleeper", "Non-AC Sleeper", "Volvo / Premium"])
         st.markdown("#### ✈️ Flight preferences")
         flight_class = st.selectbox("Flight cabin", ["Economy", "Premium Economy", "Business"])
-        submit = st.form_submit_button("Generate My Trip", type="primary", use_container_width=True)
+        submit = st.form_submit_button("Generate My Trip", type="primary", width="stretch")
     st.caption(f"AI model: {MODEL}")
 
 if submit:
@@ -334,7 +334,7 @@ with tabs[1]:
                             "Journey time": item.get("journey_time", ""), "Advantages": item.get("advantages", ""),
                             "Disadvantages": item.get("disadvantages", ""), "Verification": item.get("verification", "")})
     if options:
-        st.dataframe(pd.DataFrame(options), hide_index=True, use_container_width=True)
+        st.dataframe(pd.DataFrame(options), hide_index=True, width="stretch")
     st.info("Alternatives are compared, not added together. Only the recommended mode belongs in the main budget.")
     st.subheader("Own-car calculator")
     car = car_cost(d)
@@ -364,7 +364,7 @@ with tabs[2]:
     st.caption("Python calculates rate × quantity. Edit costs below; blank means unknown, not free. Edited amounts are used by AI Review and Chat.")
     table = st.data_editor(
         st.session_state.budget_table,
-        key=f"budget_editor_{st.session_state.generation}", hide_index=True, num_rows="fixed", use_container_width=True,
+        key=f"budget_editor_{st.session_state.generation}", hide_index=True, num_rows="fixed", width="stretch",
         column_config={
             "Category": st.column_config.TextColumn("Expense category", disabled=True),
             "Estimated group cost (₹)": st.column_config.NumberColumn("Group cost (₹)", min_value=0, step=100, format="₹%.0f"),
@@ -390,7 +390,7 @@ with tabs[2]:
     chart_df = chart_df[chart_df["Estimated group cost (₹)"] > 0]
     if not chart_df.empty:
         fig = px.pie(chart_df, names="Category", values="Estimated group cost (₹)", hole=0.4, title="Estimated Expense Distribution")
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
     st.download_button("Download budget CSV", table.to_csv(index=False).encode("utf-8"), "travel_budget.csv", "text/csv")
 
 with tabs[3]:
